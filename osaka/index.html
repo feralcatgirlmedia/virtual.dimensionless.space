@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<center>
+<head>
+  <meta charset="UTF-8">
+  <title>Osaka's Secret Unicode Language Generator!</title>
+    <audio id="sound-effect" src="sataandagi.mp3"></audio>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+</head>
+<body>
+<style>
+ body, html {
+  height: 100%;
+  background-image: url("bg.jpg");
+  height: 100%;
+  background-position: fit;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+h1 {
+  color:#00ff19;
+text-shadow: rgb(0, 0, 0) 3px 0px 0px, rgb(0, 0, 0) 2.83487px 0.981584px 0px, rgb(0, 0, 0) 2.35766px 1.85511px 0px, rgb(0, 0, 0) 1.62091px 2.52441px 0px, rgb(0, 0, 0) 0.705713px 2.91581px 0px, rgb(0, 0, 0) -0.287171px 2.98622px 0px, rgb(0, 0, 0) -1.24844px 2.72789px 0px, rgb(0, 0, 0) -2.07227px 2.16926px 0px, rgb(0, 0, 0) -2.66798px 1.37182px 0px, rgb(0, 0, 0) -2.96998px 0.42336px 0px, rgb(0, 0, 0) -2.94502px -0.571704px 0px, rgb(0, 0, 0) -2.59586px -1.50383px 0px, rgb(0, 0, 0) -1.96093px -2.27041px 0px, rgb(0, 0, 0) -1.11013px -2.78704px 0px, rgb(0, 0, 0) -0.137119px -2.99686px 0px, rgb(0, 0, 0) 0.850987px -2.87677px 0px, rgb(0, 0, 0) 1.74541px -2.43999px 0px, rgb(0, 0, 0) 2.44769px -1.73459px 0px, rgb(0, 0, 0) 2.88051px -0.838247px 0px;
+}
+
+h2 {
+  color:#ffffff;
+text-shadow: rgb(0, 0, 0) 3px 0px 0px, rgb(0, 0, 0) 2.83487px 0.981584px 0px, rgb(0, 0, 0) 2.35766px 1.85511px 0px, rgb(0, 0, 0) 1.62091px 2.52441px 0px, rgb(0, 0, 0) 0.705713px 2.91581px 0px, rgb(0, 0, 0) -0.287171px 2.98622px 0px, rgb(0, 0, 0) -1.24844px 2.72789px 0px, rgb(0, 0, 0) -2.07227px 2.16926px 0px, rgb(0, 0, 0) -2.66798px 1.37182px 0px, rgb(0, 0, 0) -2.96998px 0.42336px 0px, rgb(0, 0, 0) -2.94502px -0.571704px 0px, rgb(0, 0, 0) -2.59586px -1.50383px 0px, rgb(0, 0, 0) -1.96093px -2.27041px 0px, rgb(0, 0, 0) -1.11013px -2.78704px 0px, rgb(0, 0, 0) -0.137119px -2.99686px 0px, rgb(0, 0, 0) 0.850987px -2.87677px 0px, rgb(0, 0, 0) 1.74541px -2.43999px 0px, rgb(0, 0, 0) 2.44769px -1.73459px 0px, rgb(0, 0, 0) 2.88051px -0.838247px 0px;
+}
+
+h4 {
+  color:#ffffff;
+text-shadow: rgb(0, 0, 0) 3px 0px 0px, rgb(0, 0, 0) 2.83487px 0.981584px 0px, rgb(0, 0, 0) 2.35766px 1.85511px 0px, rgb(0, 0, 0) 1.62091px 2.52441px 0px, rgb(0, 0, 0) 0.705713px 2.91581px 0px, rgb(0, 0, 0) -0.287171px 2.98622px 0px, rgb(0, 0, 0) -1.24844px 2.72789px 0px, rgb(0, 0, 0) -2.07227px 2.16926px 0px, rgb(0, 0, 0) -2.66798px 1.37182px 0px, rgb(0, 0, 0) -2.96998px 0.42336px 0px, rgb(0, 0, 0) -2.94502px -0.571704px 0px, rgb(0, 0, 0) -2.59586px -1.50383px 0px, rgb(0, 0, 0) -1.96093px -2.27041px 0px, rgb(0, 0, 0) -1.11013px -2.78704px 0px, rgb(0, 0, 0) -0.137119px -2.99686px 0px, rgb(0, 0, 0) 0.850987px -2.87677px 0px, rgb(0, 0, 0) 1.74541px -2.43999px 0px, rgb(0, 0, 0) 2.44769px -1.73459px 0px, rgb(0, 0, 0) 2.88051px -0.838247px 0px;
+}
+
+label {
+  color:#ffffff;
+text-shadow: rgb(0, 0, 0) 3px 0px 0px, rgb(0, 0, 0) 2.83487px 0.981584px 0px, rgb(0, 0, 0) 2.35766px 1.85511px 0px, rgb(0, 0, 0) 1.62091px 2.52441px 0px, rgb(0, 0, 0) 0.705713px 2.91581px 0px, rgb(0, 0, 0) -0.287171px 2.98622px 0px, rgb(0, 0, 0) -1.24844px 2.72789px 0px, rgb(0, 0, 0) -2.07227px 2.16926px 0px, rgb(0, 0, 0) -2.66798px 1.37182px 0px, rgb(0, 0, 0) -2.96998px 0.42336px 0px, rgb(0, 0, 0) -2.94502px -0.571704px 0px, rgb(0, 0, 0) -2.59586px -1.50383px 0px, rgb(0, 0, 0) -1.96093px -2.27041px 0px, rgb(0, 0, 0) -1.11013px -2.78704px 0px, rgb(0, 0, 0) -0.137119px -2.99686px 0px, rgb(0, 0, 0) 0.850987px -2.87677px 0px, rgb(0, 0, 0) 1.74541px -2.43999px 0px, rgb(0, 0, 0) 2.44769px -1.73459px 0px, rgb(0, 0, 0) 2.88051px -0.838247px 0px;
+}
+a {
+  color:#ffffff;
+text-shadow: rgb(0, 0, 0) 3px 0px 0px, rgb(0, 0, 0) 2.83487px 0.981584px 0px, rgb(0, 0, 0) 2.35766px 1.85511px 0px, rgb(0, 0, 0) 1.62091px 2.52441px 0px, rgb(0, 0, 0) 0.705713px 2.91581px 0px, rgb(0, 0, 0) -0.287171px 2.98622px 0px, rgb(0, 0, 0) -1.24844px 2.72789px 0px, rgb(0, 0, 0) -2.07227px 2.16926px 0px, rgb(0, 0, 0) -2.66798px 1.37182px 0px, rgb(0, 0, 0) -2.96998px 0.42336px 0px, rgb(0, 0, 0) -2.94502px -0.571704px 0px, rgb(0, 0, 0) -2.59586px -1.50383px 0px, rgb(0, 0, 0) -1.96093px -2.27041px 0px, rgb(0, 0, 0) -1.11013px -2.78704px 0px, rgb(0, 0, 0) -0.137119px -2.99686px 0px, rgb(0, 0, 0) 0.850987px -2.87677px 0px, rgb(0, 0, 0) 1.74541px -2.43999px 0px, rgb(0, 0, 0) 2.44769px -1.73459px 0px, rgb(0, 0, 0) 2.88051px -0.838247px 0px;
+}
+</style>
+  <h1 style="color: white;">💖 Osaka's Secret Unicode Language Generator! 💖</h1>
+<h4> Convert Roman characters to Unicode symbols and vice versa! </h4>
+  
+  <label for="encode-input">Enter a message to encode:</label>
+  <input type="text" id="encode-input">
+  <button onclick="encode()">Encode</button>
+
+  <label for="encoded-output">Encoded Message:</label>
+  <input type="text" id="encoded-output" readonly>
+  <div>&nbsp;</div>
+
+  
+  <label for="decode-input">Enter a message to decode:</label>
+  <input type="text" id="decode-input">
+  <button onclick="decode()">Decode</button>
+  
+  <label for="decoded-output">Decoded Message:</label>
+  <input type="text" id="decoded-output" readonly>
+
+  <div>&nbsp;</div>
+  
+  <button onclick="generatePassword()">Generate / Insert Password</button>
+  <input type="text" id="password-input">
+  <div>&nbsp;</div>
+  <button onclick="downloadPassword()">Download Password</button>  <button onclick="saveKey()">Save Unicode Keys</button>
+  <h4> Upload Password: <input type="file" id="password-file" accept=".txt" onchange="loadPassword(event)">  Upload Key: <input type="file" id="key-file" accept=".json" onchange="loadKey(event)">
+  <div>&nbsp;</div>
+
+<h2> Make sure to save your password somewhere safe! You won't be able to decode what you've entered here without it once you leave this page! </h4>
+<a href="about.html"> About </a>
+  
+  <script>
+    let alphabet = {
+      'A': '⛤',
+      'B': '☀',
+      'C': '☆',
+      'D': '❂',
+      'E': '♠',
+      'F': '♦',
+      'G': '♣',
+      'H': '♥',
+      'I': '✿',
+      'J': '❀',
+      'K': '✧',
+      'L': '✩',
+      'M': '✪',
+      'N': '✦',
+      'O': '✫',
+      'P': '✶',
+      'Q': '✷',
+      'R': '✸',
+      'S': '✹',
+      'T': '✺',
+      'U': '✻',
+      'V': '✼',
+      'W': '❉',
+      'X': '❁',
+      'Y': '✾',
+      'Z': '❃',
+    };
+    
+    function shuffleAlphabet() {
+      const keys = Object.keys(alphabet);
+      const shuffledKeys = shuffle(keys);
+      const shuffledAlphabet = {};
+      
+      for (let i = 0; i < keys.length; i++) {
+        shuffledAlphabet[keys[i]] = alphabet[shuffledKeys[i]];
+      }
+      
+      alphabet = shuffledAlphabet;
+    }
+    
+    function shuffle(array) {
+      const shuffledArray = [...array];
+      
+      for (let i = shuffledArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+      }
+      
+      return shuffledArray;
+    }
+    
+    function encode() {
+      const encodeInput = document.getElementById('encode-input');
+      const encodedOutput = document.getElementById('encoded-output');
+      
+      const message = encodeInput.value.toUpperCase();
+      let encoded = '';
+      
+      for (let i = 0; i < message.length; i++) {
+        const letter = message[i];
+        const encodedLetter = alphabet[letter];
+        if (encodedLetter) {
+          encoded += encodedLetter;
+        } else {
+          encoded += letter;
+        }
+      }
+      
+      encodedOutput.value = encoded;
+        playSoundEffect();
+    }
+    
+    function decode() {
+      const decodeInput = document.getElementById('decode-input');
+      const decodedOutput = document.getElementById('decoded-output');
+      
+      const encodedMessage = decodeInput.value;
+      let decoded = '';
+      
+      for (let i = 0; i < encodedMessage.length; i++) {
+        const symbol = encodedMessage[i];
+        const letter = getKeyByValue(alphabet, symbol);
+        if (letter) {
+          decoded += letter;
+        } else {
+          decoded += symbol;
+        }
+      }
+      
+      decodedOutput.value = decoded;
+        playSoundEffect();
+    }
+    
+    function getKeyByValue(object, value) {
+      return Object.keys(object).find(key => object[key] === value);
+    }
+    
+    function generatePassword() {
+      const passwordInput = document.getElementById('password-input');
+      const password = generateRandomPassword(256);
+      passwordInput.value = password;
+    }
+    
+    function generateRandomPassword(length) {
+      const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
+      let password = '';
+      
+      for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        password += characters.charAt(randomIndex);
+      }
+      
+      return password;
+    }
+    
+    function saveKey() {
+      const passwordInput = document.getElementById('password-input');
+      const password = passwordInput.value;
+      
+      if (!password) {
+        alert('Please enter the password.');
+        return;
+      }
+      
+      const key = JSON.stringify(alphabet);
+      const encryptedKey = CryptoJS.AES.encrypt(key, password).toString();
+      const blob = new Blob([encryptedKey], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'unicode_key.json';
+      link.click();
+    }
+    
+    function loadKey(event) {
+      const passwordInput = document.getElementById('password-input');
+      const password = passwordInput.value;
+      
+      if (!password) {
+        alert('Please enter the password.');
+        return;
+      }
+      
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      
+      reader.onload = function(e) {
+        try {
+          const encryptedKey = e.target.result;
+          const decryptedKey = CryptoJS.AES.decrypt(encryptedKey, password).toString(CryptoJS.enc.Utf8);
+          const key = JSON.parse(decryptedKey);
+          alphabet = key;
+        } catch (error) {
+          alert('Invalid password or key file!');
+        }
+      };
+      
+      reader.readAsText(file);
+    }
+    
+    function downloadPassword() {
+      const passwordInput = document.getElementById('password-input');
+      const password = passwordInput.value;
+      
+      if (!password) {
+        alert('Please enter the password.');
+        return;
+      }
+      
+      const blob = new Blob([password], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'password.txt';
+      link.click();
+    }
+    
+    function loadPassword(event) {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      
+      reader.onload = function(e) {
+        const password = e.target.result;
+        const passwordInput = document.getElementById('password-input');
+        passwordInput.value = password;
+      };
+      
+      reader.readAsText(file);
+    }
+
+    function playSoundEffect() {
+      const soundEffect = document.getElementById('sound-effect');
+      soundEffect.currentTime = 0;
+      soundEffect.play();
+    }
+    
+    shuffleAlphabet();
+  </script>
+</body>
+</html>
