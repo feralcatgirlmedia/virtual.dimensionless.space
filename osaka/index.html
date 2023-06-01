@@ -72,6 +72,25 @@ text-shadow: rgb(0, 0, 0) 3px 0px 0px, rgb(0, 0, 0) 2.83487px 0.981584px 0px, rg
 
 <h2> Make sure to save your password somewhere safe! You won't be able to decode what you've entered here without it once you leave this page! </h4>
 <a href="about.html"> About </a>
+    
+      <div>&nbsp;</div>
+
+<audio id="sound-effect" src="sataandagi.mp3"></audio>
+<button id="mute-button" onclick="toggleMute()">Mute Sata Andagi 🍩🔊</button>
+
+<script>
+  var audio = document.getElementById("sound-effect");
+
+  function toggleMute() {
+    if (audio.muted) {
+      audio.muted = false;
+      document.getElementById("mute-button").innerText = "Mute Sata Andagi 🍩🔊";
+    } else {
+      audio.muted = true;
+      document.getElementById("mute-button").innerText = "Unmute Sata Andagi! 🍩🔊";
+    }
+  }
+</script>
   
   <script>
     let alphabet = {
