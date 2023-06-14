@@ -90,32 +90,4 @@ text-shadow: rgb(0, 0, 0) 3px 0px 0px, rgb(0, 0, 0) 2.83487px 0.981584px 0px, rg
                                                "
            </pre></center>
             <div id="app" style="position:absolute; right:0; top:0;"></div>
-<script src="https://unpkg.com/webamp"></script>
-<script>
-    const app = document.getElementById("app")
-    const webamp = new Webamp({
-    initialTracks: [
-                {
-                    metaData: {
-                        artist: "Chxrry",
-                        title: "starlit kisses"
-                    },
-                    url: "/music/starlitkisses.mp3",
-                },
-              {
-                                  metaData: {
-                        artist: "Chxrry",
-                        title: "absolutely wonderful"
-                    },
-                    url: "/music/absolutelywonderful.mp3",
-                }
-            ],
-            initialSkin: {
-        url: "/art/angels_eyes.wsz"
-    },
-        });
-
-        // Returns a promise indicating when it's done loading.
-         webamp.renderWhenReady(app);
-</script>
 <div id="footer"></div>
