@@ -15,6 +15,37 @@ $(function(){
   <div id="header"></div>
   <center><h2 style="color:pink"> + M U S I C +</a></center>
     <center>
+              <div id="app" style="height: 100vh">
+        <!-- Webamp will attempt to center itself within this div -->
+    </div>
+    <script src="https://unpkg.com/webamp@1.4.2/built/webamp.bundle.min.js"></script>
+    <script>
+        const Webamp = window.Webamp;
+        const webamp = new Webamp({
+            initialTracks: [
+                {
+                    metaData: {
+                        artist: "CHXRRY",
+                        title: "Starlit Kisses"
+                    },
+                    // NOTE: Your audio file must be served from the same domain as your HTML
+                    // file, or served with permissive CORS HTTP headers:
+                    // https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
+                    url: "https://virtual.dimensionless.space/music/starlitkisses.mp3",
+                },
+                {
+                    metaData: {
+                        artist: "CHXRRY",
+                        title: "Absolutely Wonderful!"
+                    },
+                    url: "https://virtual.dimensionless.space/music/absolutelywonderful.mp3",
+                }
+            ],
+        });
+
+        // Returns a promise indicating when it's done loading.
+        webamp.renderWhenReady(document.getElementById('app'));
+    </script>
     <nav>
       <h4 href="index" style="color:pink">boxcutter - it's more like embracing [skramz]</a></nav><div>
 <center><a href="https://boxxy.bandcamp.com" target="_blank"><img src="https://f4.bcbits.com/img/a1614889077_16.jpg" border="0" width="500" height="500"/></a></center>
@@ -26,37 +57,6 @@ $(function(){
 <center><a href="https://garter666.bandcamp.com/album/garter-demo-2020" target="_blank"><img src="https://f4.bcbits.com/img/a2580807382_10.jpg" border="0" width="500" height="500" /></a></center>
     </nav></h4>
     <br><br><br><br>
-   <center>
-                <script src="https://unpkg.com/webamp"></script>
-<script>
-    const app = document.getElementById("app")
-    const webamp = new Webamp({
-    initialTracks: [
-                {
-                    metaData: {
-                        artist: "Chxrry",
-                        title: "starlit kisses"
-                    },
-                    url: "/music/starlitkisses.mp3",
-                },
-              {
-                                  metaData: {
-                        artist: "Chxrry",
-                        title: "absolutely wonderful"
-                    },
-                    url: "/music/absolutelywonderful.mp3",
-                }
-            ],
-            initialSkin: {
-        url: "/art/angels_eyes.wsz"
-    },
-        });
-
-        // Returns a promise indicating when it's done loading.
-         webamp.renderWhenReady(app);
-</script>
-        </center>
-            <div id="app" style="position:absolute; right:0; top:0;"></div>
     <center>
     <pre style="color:pink">                  _ _-^^"-,---,
                   _-""./  ||//_  /
