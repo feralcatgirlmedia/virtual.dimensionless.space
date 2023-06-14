@@ -32,6 +32,36 @@ text-shadow: rgb(0, 0, 0) 3px 0px 0px, rgb(0, 0, 0) 2.83487px 0.981584px 0px, rg
   </style>
   <div id="header"></div>
   <center><h2 style="color:pink"> + M U S I C +</a></center>
+        <center>
+                <script src="https://unpkg.com/webamp"></script>
+<script>
+    const app = document.getElementById("app")
+    const webamp = new Webamp({
+    initialTracks: [
+                {
+                    metaData: {
+                        artist: "Chxrry",
+                        title: "starlit kisses"
+                    },
+                    url: "/music/starlitkisses.mp3",
+                },
+              {
+                                  metaData: {
+                        artist: "Chxrry",
+                        title: "absolutely wonderful"
+                    },
+                    url: "/music/absolutelywonderful.mp3",
+                }
+            ],
+            initialSkin: {
+        url: "/art/angels_eyes.wsz"
+    },
+        });
+
+        // Returns a promise indicating when it's done loading.
+         webamp.renderWhenReady(app);
+</script>
+        </center>
     <center>
     <nav>
       <h4 href="index" style="color:pink">digital angel online. - natsukashii [lo-fi experimental hiphop]</a></nav><div>
