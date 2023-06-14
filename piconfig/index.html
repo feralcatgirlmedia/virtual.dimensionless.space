@@ -244,6 +244,37 @@ network={
 
             return countryCodes[country] || "US"; // Default to US if country code not found
         }
+     function generateConfig() {
+            var configText = "";
+            
+            var options = document.getElementsByTagName("input");
+            for (var i = 0; i < options.length; i++) {
+                var option = options[i];
+                if (option.type === "checkbox" && option.checked) {
+                    configText += option.id + "=" + option.value + "\n";
+                }
+                else if (option.type === "text" && option.value !== "") {
+                    configText += option.id + "=" + option.value + "\n";
+                }
+            }
+            
+            var selectOptions = document.getElementsByTagName("select");
+            for (var j = 0; j < selectOptions.length; j++) {
+                var selectOption = selectOptions[j];
+                configText += selectOption.id + "=" + selectOption.value + "\n";
+            }
+            
+            var additionalOptions = document.getElementById("additional_options").value;
+            configText += additionalOptions;
+
+            var element = document.createElement('a');
+            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(configText));
+            element.setAttribute('download', 'config.txt');
+            element.style.display = 'none';
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+        }
     </script>
 </head>
 <body>
@@ -272,7 +303,245 @@ network={
 <h2> Save the contents directly to your Raspberry Pi SD card! </h2>
     </form>
      <h1>config.txt</h1>
- <h2> Coming Soon! </h2>
+<form>
+        <label for="avoid_warnings">Avoid Warnings:</label>
+        <select id="avoid_warnings">
+            <option value=""></option>
+            <option value="1">Enabled</option>
+            <option value="0">Disabled</option>
+        </select>
+        <div class="explanation">Enable or disable avoidance of warnings.</div>
+
+        <label for="boot_delay">Boot Delay:</label>
+        <input type="text" id="boot_delay">
+        <div class="explanation">Delay the start of the boot process (in milliseconds).</div>
+
+        <label for="disable_splash">Disable Splash:</label>
+        <select id="disable_splash">
+            <option value=""></option>
+            <option value="1">Enabled</option>
+            <option value="0">Disabled</option>
+        </select>
+        <div class="explanation">Enable or disable the splash screen.</div>
+
+        <label for="gpu_mem">GPU Memory:</label>
+        <input type="text" id="gpu_mem">
+        <div class="explanation">Allocate memory to the GPU (in megabytes).</div>
+
+        <label for="hdmi_drive">HDMI Drive:</label>
+        <input type="text" id="hdmi_drive">
+        <div class="explanation">Configure the HDMI drive current.</div>
+
+        <label for="hdmi_force_hotplug">HDMI Force Hotplug:</label>
+        <select id="hdmi_force_hotplug">
+            <option value=""></option>
+            <option value="1">Enabled</option>
+            <option value="0">Disabled</option>
+        </select>
+        <div class="explanation">Force HDMI output even if no HDMI display is detected.</div>
+
+        <label for="hdmi_group">HDMI Group:</label>
+        <input type="text" id="hdmi_group">
+        <div class="explanation">Select the HDMI output group.</div>
+
+        <label for="hdmi_ignore_edid">HDMI Ignore EDID:</label>
+        <select id="hdmi_ignore_edid">
+            <option value=""></option>
+            <option value="1">Enabled</option>
+            <option value="0">Disabled</option>
+        </select>
+        <div class="explanation">Ignore the HDMI EDID information from the display.</div>
+
+        <label for="hdmi_ignore_hotplug">HDMI Ignore Hotplug:</label>
+        <select id="hdmi_ignore_hotplug">
+            <option value=""></option>
+            <option value="1">Enabled</option>
+            <option value="0">Disabled</option>
+        </select>
+        <div class="explanation">Ignore HDMI hotplug events.</div>
+
+        <label for="hdmi_mode">HDMI Mode:</label>
+        <input type="text" id="hdmi_mode">
+        <div class="explanation">Select the HDMI output mode.</div>
+
+        <label for="over_voltage">Over Voltage:</label>
+        <input type="text" id="over_voltage">
+        <div class="explanation">Set the overvoltage of the Raspberry Pi.</div>
+
+        <label for="sdtv_aspect">SDTV Aspect Ratio:</label>
+        <input type="text" id="sdtv_aspect">
+        <div class="explanation">Set the aspect ratio for SDTV output.</div>
+
+        <label for="sdtv_mode">SDTV Mode:</label>
+        <input type="text" id="sdtv_mode">
+        <div class="explanation">Set the SDTV output mode.</div>
+
+        <label for="avoid_pwm_pll">Avoid PWM PLL:</label>
+        <select id="avoid_pwm_pll">
+            <option value=""></option>
+            <option value="1">Enabled</option>
+            <option value="0">Disabled</option>
+        </select>
+        <div class="explanation">Avoid using the PWM clock for PLL.</div>
+
+        <label for="core_freq">Core Frequency:</label>
+        <input type="text" id="core_freq">
+        <div class="explanation">Set the frequency of the ARM CPU cores.</div>
+
+        <label for="disable_overscan">Disable Overscan:</label>
+        <select id="disable_overscan">
+            <option value=""></option>
+            <option value="1">Enabled</option>
+            <option value="0">Disabled</option>
+        </select>
+        <div class="explanation">Enable or disable overscan.</div>
+
+        <label for="force_eeprom_read">Force EEPROM Read:</label>
+        <select id="force_eeprom_read">
+            <option value=""></option>
+            <option value="1">Enabled</option>
+            <option value="0">Disabled</option>
+        </select>
+        <div class="explanation">Force EEPROM to be read at boot.</div>
+
+        <label for="force_pwm_ser">Force PWM Serial:</label>
+        <select id="force_pwm_ser">
+            <option value=""></option>
+            <option value="1">Enabled</option>
+            <option value="0">Disabled</option>
+        </select>
+        <div class="explanation">Force the use of PWM for serial port.</div>
+
+        <label for="hdmi_enable_4kp60">HDMI Enable 4Kp60:</label>
+        <select id="hdmi_enable_4kp60">
+            <option value=""></option>
+            <option value="1">Enabled</option>
+            <option value="0">Disabled</option>
+        </select>
+        <div class="explanation">Enable or disable 4Kp60 HDMI output.</div>
+
+        <label for="init_uart_clock">Init UART Clock:</label>
+        <input type="text" id="init_uart_clock">
+        <div class="explanation">Set the initial UART clock rate.</div>
+
+        <label for="initial_turbo">Initial Turbo:</label>
+        <select id="initial_turbo">
+            <option value=""></option>
+            <option value="1">Enabled</option>
+            <option value="0">Disabled</option>
+        </select>
+        <div class="explanation">Enable or disable initial turbo mode.</div>
+
+        <label for="kernel_address">Kernel Address:</label>
+        <input type="text" id="kernel_address">
+        <div class="explanation">Set the kernel address.</div>
+
+        <label for="kernel_old">Kernel Old:</label>
+        <select id="kernel_old">
+            <option value=""></option>
+            <option value="1">Enabled</option>
+            <option value="0">Disabled</option>
+        </select>
+        <div class="explanation">Use an older version of the kernel.</div>
+
+        <label for="mailhub">Mail Hub:</label>
+        <input type="text" id="mailhub">
+        <div class="explanation">Set the mail server hub.</div>
+
+        <label for="max_usb_current">Max USB Current:</label>
+        <input type="text" id="max_usb_current">
+        <div class="explanation">Set the maximum USB current (in milliamperes).</div>
+
+        <label for="over_voltage_avs">Over Voltage AVS:</label>
+        <input type="text" id="over_voltage_avs">
+        <div class="explanation">Set the overvoltage for AVS.</div>
+
+        <label for="over_voltage_freq">Over Voltage Frequency:</label>
+        <input type="text" id="over_voltage_freq">
+        <div class="explanation">Set the overvoltage frequency.</div>
+
+        <label for="program_serial_random">Program Serial Random:</label>
+        <select id="program_serial_random">
+            <option value=""></option>
+            <option value="1">Enabled</option>
+            <option value="0">Disabled</option>
+        </select>
+        <div class="explanation">Program a random serial number.</div>
+
+        <label for="sdram_freq">SDRAM Frequency:</label>
+        <input type="text" id="sdram_freq">
+        <div class="explanation">Set the frequency of the SDRAM.</div>
+
+        <label for="sdram_schmoo">SDRAM Schmoo:</label>
+        <input type="text" id="sdram_schmoo">
+        <div class="explanation">Set the SDRAM schmoo.</div>
+
+        <label for="start_x">Start X:</label>
+        <select id="start_x">
+            <option value=""></option>
+            <option value="1">Enabled</option>
+            <option value="0">Disabled</option>
+        </select>
+        <div class="explanation">Enable or disable the start of the X Window System.</div>
+
+        <label for="uart_clock">UART Clock:</label>
+        <input type="text" id="uart_clock">
+        <div class="explanation">Set the UART clock rate.</div>
+
+        <label for="uart_dma">UART DMA:</label>
+        <select id="uart_dma">
+            <option value=""></option>
+            <option value="1">Enabled</option>
+            <option value="0">Disabled</option>
+        </select>
+        <div class="explanation">Enable or disable UART DMA.</div>
+
+        <label for="uart_pll">UART PLL:</label>
+        <select id="uart_pll">
+            <option value=""></option>
+            <option value="1">Enabled</option>
+            <option value="0">Disabled</option>
+        </select>
+        <div class="explanation">Enable or disable UART PLL.</div>
+
+        <label for="usb_audio">USB Audio:</label>
+        <select id="usb_audio">
+            <option value=""></option>
+            <option value="1">Enabled</option>
+            <option value="0">Disabled</option>
+        </select>
+        <div class="explanation">Enable or disable USB audio.</div>
+
+        <label for="usb_host_mode">USB Host Mode:</label>
+        <select id="usb_host_mode">
+            <option value=""></option>
+            <option value="1">Enabled</option>
+            <option value="0">Disabled</option>
+        </select>
+        <div class="explanation">Enable or disable USB host mode.</div>
+
+        <label for="v3d_freq">V3D Frequency:</label>
+        <input type="text" id="v3d_freq">
+        <div class="explanation">Set the frequency of the V3D core.</div>
+
+        <label for="display_rotate">Display Rotate:</label>
+        <input type="text" id="display_rotate">
+        <div class="explanation">Rotate the display.</div>
+
+        <label for="hdmi_cvt">HDMI CVT:</label>
+        <input type="text" id="hdmi_cvt">
+        <div class="explanation">Configure HDMI modes using CVT.</div>
+
+        <label for="dtparam">Device Tree Parameters:</label>
+        <textarea id="dtparam"></textarea>
+        <div class="explanation">Enter additional device tree parameters.</div>
+
+        <label for="additional_options">Additional Options:</label>
+        <textarea id="additional_options"></textarea>
+        <div class="explanation">Enter any additional configuration options you want to add to the config.txt file.</div>
+
+        <input type="button" value="Generate Config" onclick="generateConfig()">
+    </form>
      <footer style="position: fixed; bottom: 0; width: 100%; color:pink">Made and hosted with love by <a href="https://github.com/faithvoid">Faith Void</a> @ <a href="https://virtual.dimensionless.space">virtual.dimensionless.space</a></a></div></div></footer>
 </body>
 </html>
