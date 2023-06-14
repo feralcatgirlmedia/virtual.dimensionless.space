@@ -1,6 +1,7 @@
 body {
     background-image: url('bg.png');
-            background-size: auto;
+      background-position: center; /* Center the image */
+            background-size: cover;
   }
                   a {
   color:#FFFFFF;
