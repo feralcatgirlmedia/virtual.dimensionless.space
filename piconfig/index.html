@@ -56,33 +56,41 @@ network={
     psk="${password}"
 }`;
 
-            // Generate ssh file
-            var ssh = enableSSH ? "" : "disabled";
-
             // Create wpa_supplicant.conf file download link
             var wpaLink = document.createElement("a");
             wpaLink.href = "data:text/plain;charset=utf-8," + encodeURIComponent(wpaSupplicant);
             wpaLink.download = "wpa_supplicant.conf";
 
-            // Create ssh file download link
-            var sshLink = document.createElement("a");
-            sshLink.href = "data:text/plain;charset=utf-8," + encodeURIComponent(ssh);
-            sshLink.download = "ssh";
-
-            // Append the download links to the document
+            // Append the download link to the document
             document.body.appendChild(wpaLink);
-            document.body.appendChild(sshLink);
 
             // Trigger the download
             wpaLink.click();
-            sshLink.click();
 
-            // Remove the download links from the document
+            // Remove the download link from the document
             document.body.removeChild(wpaLink);
-            document.body.removeChild(sshLink);
+
+            if (enableSSH) {
+                // Generate ssh file
+                var ssh = "";
+
+                // Create ssh file download link
+                var sshLink = document.createElement("a");
+                sshLink.href = "data:text/plain;charset=utf-8," + encodeURIComponent(ssh);
+                sshLink.download = "ssh";
+
+                // Append the download link to the document
+                document.body.appendChild(sshLink);
+
+                // Trigger the download
+                sshLink.click();
+
+                // Remove the download link from the document
+                document.body.removeChild(sshLink);
+            }
         }
 
- function getCountryCode(country) {
+       function getCountryCode(country) {
         // Country code mappings
         var countryCodes = {
             "Ascension Island": "AC",
