@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+</head>
+
+<body><center>
+<h1> WebAmp Track Generator </h1>
+<h2> Easily generate a modified WebAmp metadata section!</h2>
+    <div>
+        <h2>Add Song</h2>
+        <div id="songInputs">
+            <div class="songInput">
+                <label for="artistInput">Artist:</label>
+                <input type="text" class="artistInput" required><br>
+                <label for="titleInput">Title:</label>
+                <input type="text" class="titleInput" required><br>
+                <label for="urlInput">URL:</label>
+                <input type="text" class="urlInput" required><br><br>
+            </div>
+        </div>
+        <button id="addSongButton">+</button>
+        <br><br>
+        <button id="generateMetadataButton">Generate Metadata</button>
+    </div>
+    <div id="metadataResult" style="display: none;">
+        <h2>Generated Metadata:</h2>
+        <pre id="metadataOutput"></pre>
+    </div>
+<script>
+        const songInputsContainer = document.getElementById('songInputs');
+        const addSongButton = document.getElementById('addSongButton');
+        const generateMetadataButton = document.getElementById('generateMetadataButton');
+
+        addSongButton.addEventListener('click', function () {
+            const songInputDiv = document.createElement('div');
+            songInputDiv.className = 'songInput';
+
+            const artistInput = document.createElement('input');
+            artistInput.type = 'text';
+            artistInput.className = 'artistInput';
+            artistInput.required = true;
+
+            const titleInput = document.createElement('input');
+            titleInput.type = 'text';
+            titleInput.className = 'titleInput';
+            titleInput.required = true;
+
+            const urlInput = document.createElement('input');
+            urlInput.type = 'text';
+            urlInput.className = 'urlInput';
+            urlInput.required = true;
+
+            songInputDiv.appendChild(document.createTextNode('Artist: '));
+            songInputDiv.appendChild(artistInput);
+            songInputDiv.appendChild(document.createElement('br'));
+            songInputDiv.appendChild(document.createTextNode('Title: '));
+            songInputDiv.appendChild(titleInput);
+            songInputDiv.appendChild(document.createElement('br'));
+            songInputDiv.appendChild(document.createTextNode('URL: '));
+            songInputDiv.appendChild(urlInput);
+            songInputDiv.appendChild(document.createElement('br'));
+            songInputDiv.appendChild(document.createElement('br')); // Added extra line break for consistent spacing
+            songInputsContainer.appendChild(songInputDiv);
+        });
+
+        generateMetadataButton.addEventListener('click', function () {
+            const artistInputs = document.getElementsByClassName('artistInput');
+            const titleInputs = document.getElementsByClassName('titleInput');
+            const urlInputs = document.getElementsByClassName('urlInput');
+
+            const tracks = [];
+            for (let i = 0; i < artistInputs.length; i++) {
+                const artist = artistInputs[i].value;
+                const title = titleInputs[i].value;
+                const url = urlInputs[i].value;
+
+                const newTrack = {
+                    metaData: {
+                        artist: artist,
+                        title: title
+                    },
+                    url: url,
+                    duration: 0 // Set the duration accordingly
+                };
+
+                tracks.push(newTrack);
+            }
+
+            const metadataOutput = document.getElementById('metadataOutput');
+            metadataOutput.textContent = JSON.stringify(tracks, null, 4);
+
+            document.getElementById('metadataResult').style.display = 'block';
+        });
+
+        document.getElementById('addToPlayer').addEventListener('click', function () {
+            const scriptOutputCode = document.getElementById('scriptOutputCode');
+            scriptOutputCode.textContent = generateWebAmpScript();
+
+            document.getElementById('scriptOutput').style.display = 'block';
+        });
+
+        function generateWebAmpScript() {
+            const metadataOutput = document.getElementById('metadataOutput');
+            const tracks = JSON.parse(metadataOutput.textContent);
+
+            const script = `
+                const Webamp = window.Webamp;
+                const webamp = new Webamp({
+                    initialTracks: ${JSON.stringify(tracks, null, 4)}
+                });
+                webamp.renderWhenReady(document.getElementById('app'));
+            `;
+            return script;
+        }
+    </script>
+</center>
+</body>
+
+</html>
