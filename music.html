@@ -30,6 +30,63 @@ $(function(){
     </nav></h4>
     <br><br><br><br>
     <center>
+            <body>
+    <div id="app" style="height: 100vh">
+        <!-- Webamp will attempt to center itself within this div -->
+    </div>
+    <script src="https://unpkg.com/webamp@1.4.2/built/webamp.bundle.min.js"></script>
+    <script>
+        const Webamp = window.Webamp;
+        const webamp = new Webamp({
+            initialTracks: [
+    {
+        "metaData": {
+            "artist": "CHXRRY",
+            "title": "ANGEL VISIONS"
+        },
+        "url": "",
+        "duration": 183
+    },
+    {
+        "metaData": {
+            "artist": "digital angel online.",
+            "title": "virtual lovers."
+        },
+        "url": "",
+        "duration": 198
+    },
+    {
+        "metaData": {
+            "artist": ".lavenderStarlight+",
+            "title": "far away / i miss you"
+        },
+        "url": "",
+        "duration": 132
+    },
+    {
+        "metaData": {
+            "artist": "boxcutter.",
+            "title": "at 6​:​45 am i saw your ghost by my bedroom window "
+        },
+        "url": "",
+        "duration": 213
+    },
+    {
+        "metaData": {
+            "artist": "GARTER",
+            "title": "Horrifying Existence"
+        },
+        "url": "",
+        "duration": 92
+    }
+            ],
+        });
+
+        // Returns a promise indicating when it's done loading.
+        webamp.renderWhenReady(document.getElementById('app'));
+    </script>
+</body>
+    </center>
     <pre style="color:pink">
                       _ _-^^"-,---,
                   _-""./  ||//_  /
