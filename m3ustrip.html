@@ -74,6 +74,13 @@
       document.body.removeChild(element);
     }
   </script>
+          <style>
+    .column {
+      display: inline-block;
+      vertical-align: top;
+      width: 48%;
+    }
+  </style>
 </head>
 <body>
   <h1>m3ustrip</h1>
@@ -88,12 +95,12 @@
   </p>
     <input type="file" id="fileInput" accept=".m3u" onchange="handleFileSelect(event)">
 
-  <div>
+  <div class="column">
     <h3>Imported Contents:</h3>
     <pre id="importedContents"></pre>
   </div>
         
-  <div>
+  <div class="column">
     <h3>Exported Contents:</h3>
     <pre id="exportedContents"></pre>
   </div>
