@@ -12,6 +12,7 @@ body {
 body {
     background-image: url('bg.png');
             background-size: fill;
+    background-repeat: no-repeat;
   }
                   a, h1, h2, h3, h4 {
   color:#FFFFFF;
