@@ -31,7 +31,10 @@
         if (line.startsWith("#EXTINF:") || line.startsWith("#")) {
           strippedLines.push(line);
         } else {
-          var lastIndex = line.lastIndexOf('/');
+          var lastIndexUnix = line.lastIndexOf('/');
+          var lastIndexWindows = line.lastIndexOf('\\');
+          var lastIndex = Math.max(lastIndexUnix, lastIndexWindows);
+
           if (lastIndex !== -1) {
             var strippedLine = line.substring(lastIndex + 1);
             strippedLines.push(strippedLine);
