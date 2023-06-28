@@ -115,36 +115,42 @@
     }
 
     function generateDownloadButtons() {
-      var downloadButtonsContainer = document.getElementById('downloadButtonsContainer');
-      downloadButtonsContainer.innerHTML = "";
+  var downloadButtonsContainer = document.getElementById('downloadButtonsContainer');
+  downloadButtonsContainer.innerHTML = "";
 
-      for (var i = 0; i < importedFilenames.length; i++) {
-        var filename = importedFilenames[i];
-        var newFilename = filename.replace('.m3u', '.stripped.m3u');
-               var newFilename = filename.replace('.m3u8', '.stripped.m3u8');
+  for (var i = 0; i < importedFilenames.length; i++) {
+    var filename = importedFilenames[i];
+    var newFilename = getStrippedFilename(filename);
 
-        var buttonElement = document.createElement('button');
-        buttonElement.innerText = 'Download ' + filename;
-        buttonElement.addEventListener('click', generateDownloadHandler(i, newFilename));
+    var buttonElement = document.createElement('button');
+    buttonElement.innerText = 'Download ' + filename;
+    buttonElement.addEventListener('click', generateDownloadHandler(i, newFilename));
 
-        downloadButtonsContainer.appendChild(buttonElement);
-      }
-    }
+    downloadButtonsContainer.appendChild(buttonElement);
+  }
+}
 
-    function generateDownloadHandler(index, newFilename) {
-      return function() {
-        var element = document.createElement('a');
-        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(exportedContents[index]));
-        element.setAttribute('download', newFilename);
+function getStrippedFilename(filename) {
+  var extension = filename.substring(filename.lastIndexOf('.'));
+  var strippedExtension = extension === '.m3u' ? '.stripped.m3u' : '.stripped.m3u8';
+  var strippedFilename = filename.replace(extension, strippedExtension);
+  return strippedFilename;
+}
 
-        element.style.display = 'none';
-        document.body.appendChild(element);
+function generateDownloadHandler(index, newFilename) {
+  return function() {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(exportedContents[index]));
+    element.setAttribute('download', newFilename);
 
-        element.click();
+    element.style.display = 'none';
+    document.body.appendChild(element);
 
-        document.body.removeChild(element);
-      };
-    }
+    element.click();
+
+    document.body.removeChild(element);
+  };
+}
   </script>
   <style>
     .column {
