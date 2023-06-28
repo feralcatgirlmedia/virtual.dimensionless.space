@@ -25,11 +25,16 @@
         reader.onload = (function(file) {
           return function(e) {
             var fileContents = e.target.result;
-            importedContents.push(fileContents);
-            importedFilenames.push(file.name);
-            displayImportedContents();
-            stripFolderData(importedContents.length - 1);
-            generateDownloadButtons();
+            var filename = file.name;
+            if (isSupportedFile(filename)) {
+              importedContents.push(fileContents);
+              importedFilenames.push(filename);
+              displayImportedContents();
+              stripFolderData(importedContents.length - 1);
+              generateDownloadButtons();
+            } else {
+              showError('Unsupported file format: ' + filename);
+            }
           };
         })(file);
 
