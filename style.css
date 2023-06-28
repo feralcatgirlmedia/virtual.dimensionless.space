@@ -3,6 +3,12 @@ font-family: "Protomo-Outline";
 url("Protomo-Outline.otf") format("opentype"),
 }
 
+    html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
 body {
     background-image: url('bg.png');
             background-size: cover;
