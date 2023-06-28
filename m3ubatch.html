@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html>
-<link rel="stylesheet" href="css/m3u.css">
 <head>
 <center>
   <title>m3ustrip</title>
-  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+ <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
       <script>
         $(function(){
             $("#footer").load("../footer.html");
@@ -145,25 +144,31 @@
       };
     }
   </script>
+  <style>
+    .column {
+      display: inline-block;
+      vertical-align: top;
+      width: 48%;
+    }
+  </style>
 </head>
 <body>
   <h1>m3ustrip</h1>
   <h3>The hottest digital (M3U folder metadata) stripper around!</h3>
   <h4>Great for making portable Mixxx playlists!</h4>
+<p>Select .m3u playlist files to import:
+  <input type="file" id="fileInput" accept=".m3u" multiple onchange="handleFileSelect(event)"></p>
 
-  <p>Select .m3u playlist files to import:</p>
-  <input type="file" id="fileInput" accept=".m3u" multiple onchange="handleFileSelect(event)">
+  <div class="column">
 
-  <div>
     <h3>Imported Contents:</h3>
     <div id="importedContents"></div>
   </div>
 
-  <div>
+  <div class="column">
     <h3>Exported Contents:</h3>
     <div id="exportedContents"></div>
   </div>
-
   <div id="downloadButtonsContainer"></div>
   <div id="footer"></div>
 </body>
