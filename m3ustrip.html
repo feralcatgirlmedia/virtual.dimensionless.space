@@ -42,6 +42,16 @@
       }
     }
 
+    function isSupportedFile(filename) {
+      var supportedExtensions = ['.m3u', '.m3u8'];
+      var fileExtension = filename.substring(filename.lastIndexOf('.'));
+      return supportedExtensions.includes(fileExtension);
+    }
+
+    function showError(message) {
+      alert(message);
+    }
+
     function stripFolderData(index) {
       var lines = importedContents[index].split('\n');
       var strippedLines = [];
