@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+        <link rel="stylesheet" href="osaka/style.css">
+<head>
+<center>
+  <title>m3ustrip</title>
+  <script>
+    var importedContents = "";
+    var exportedContents = "";
+
+    function handleFileSelect(event) {
+      var file = event.target.files[0];
+      var reader = new FileReader();
+
+      reader.onload = function(e) {
+        importedContents = e.target.result;
+        document.getElementById('importedContents').innerText = importedContents;
+        convertPlaylist();
+      };
+
+      reader.readAsText(file);
+    }
+
+    function stripFolderData() {
+      var lines = importedContents.split('\n');
+      var strippedLines = [];
+
+      for (var i = 0; i < lines.length; i++) {
+        var line = lines[i].trim();
+
+        if (line.startsWith("#EXTINF:") || line.startsWith("#")) {
+          strippedLines.push(line);
+        } else {
+          var lastIndex = line.lastIndexOf('/');
+          if (lastIndex !== -1) {
+            var strippedLine = line.substring(lastIndex + 1);
+            strippedLines.push(strippedLine);
+          } else {
+            strippedLines.push(line);
+          }
+        }
+      }
+
+      exportedContents = strippedLines.join('\n');
+      document.getElementById('exportedContents').innerText = exportedContents;
+    }
+
+    function convertPlaylist() {
+      stripFolderData();
+    }
+
+    function downloadPlaylist() {
+      var filename = document.getElementById('fileInput').files[0].name;
+      var newFilename = filename.replace('.m3u', '.stripped.m3u');
+
+      var element = document.createElement('a');
+      element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(exportedContents));
+      element.setAttribute('download', newFilename);
+
+      element.style.display = 'none';
+      document.body.appendChild(element);
+
+      element.click();
+
+      document.body.removeChild(element);
+    }
+  </script>
+</head>
+<body>
+  <h1>m3ustrip</h1>
+<h3> The hottest M3U folder metadata stripper around! </h3>
+
+  <p>
+    Select an .m3u playlist file to import:
+  </p>
+    <input type="file" id="fileInput" accept=".m3u" onchange="handleFileSelect(event)">
+
+  <div>
+    <h3>Imported Contents:</h3>
+    <pre id="importedContents"></pre>
+  </div>
+
+  <button onclick="convertPlaylist()">Convert</button>
+
+  <div>
+    <h3>Exported Contents:</h3>
+    <pre id="exportedContents"></pre>
+  </div>
+
+  <button onclick="downloadPlaylist()">Download</button>
+</body>
+</html>
