@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" href="css/m3u.css">
+<head>
+<center>
+  <title>m3ustrip</title>
+  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+      <script>
+        $(function(){
+            $("#footer").load("../footer.html");
+        });
+    </script>
+  <script>
+    var importedContents = [];
+    var exportedContents = [];
+    var importedFilenames = [];
+
+    function handleFileSelect(event) {
+      var files = event.target.files;
+
+      for (var i = 0; i < files.length; i++) {
+        var file = files[i];
+        var reader = new FileReader();
+
+        reader.onload = (function(file) {
+          return function(e) {
+            var fileContents = e.target.result;
+            importedContents.push(fileContents);
+            importedFilenames.push(file.name);
+            displayImportedContents();
+            stripFolderData(importedContents.length - 1);
+            generateDownloadButtons();
+          };
+        })(file);
+
+        reader.readAsText(file);
+      }
+    }
+
+    function stripFolderData(index) {
+      var lines = importedContents[index].split('\n');
+      var strippedLines = [];
+
+      for (var i = 0; i < lines.length; i++) {
+        var line = lines[i].trim();
+
+        if (line.startsWith("#EXTINF:") || line.startsWith("#")) {
+          strippedLines.push(line);
+        } else {
+          var lastIndexUnix = line.lastIndexOf('/');
+          var lastIndexWindows = line.lastIndexOf('\\');
+          var lastIndex = Math.max(lastIndexUnix, lastIndexWindows);
+
+          if (lastIndex !== -1) {
+            var strippedLine = line.substring(lastIndex + 1);
+            strippedLines.push(strippedLine);
+          } else {
+            strippedLines.push(line);
+          }
+        }
+      }
+
+      exportedContents[index] = strippedLines.join('\n');
+      displayExportedContents();
+    }
+
+    function displayImportedContents() {
+      var importedContentsElement = document.getElementById('importedContents');
+      importedContentsElement.innerHTML = "";
+
+      for (var i = 0; i < importedContents.length; i++) {
+        var importedContent = importedContents[i];
+        var filename = importedFilenames[i];
+
+        var filenameElement = document.createElement('h4');
+        filenameElement.innerText = filename;
+        importedContentsElement.appendChild(filenameElement);
+
+        var preElement = document.createElement('pre');
+        preElement.innerText = importedContent;
+        importedContentsElement.appendChild(preElement);
+
+        // Add a divider after each imported playlist
+        if (i < importedContents.length - 1) {
+          var dividerElement = document.createElement('pre');
+          dividerElement.className = 'divider';
+          importedContentsElement.appendChild(dividerElement);
+        }
+      }
+    }
+
+    function displayExportedContents() {
+      var exportedContentsElement = document.getElementById('exportedContents');
+      exportedContentsElement.innerHTML = "";
+
+      for (var i = 0; i < exportedContents.length; i++) {
+        var exportedContent = exportedContents[i];
+        var filename = importedFilenames[i];
+
+        var filenameElement = document.createElement('h4');
+        filenameElement.innerText = filename;
+        exportedContentsElement.appendChild(filenameElement);
+
+        var preElement = document.createElement('pre');
+        preElement.innerText = exportedContent;
+        exportedContentsElement.appendChild(preElement);
+
+        // Add a divider after each exported playlist
+        if (i < exportedContents.length - 1) {
+          var dividerElement = document.createElement('pre');
+          dividerElement.className = 'divider';
+          exportedContentsElement.appendChild(dividerElement);
+        }
+      }
+    }
+
+    function generateDownloadButtons() {
+      var downloadButtonsContainer = document.getElementById('downloadButtonsContainer');
+      downloadButtonsContainer.innerHTML = "";
+
+      for (var i = 0; i < importedFilenames.length; i++) {
+        var filename = importedFilenames[i];
+        var newFilename = filename.replace('.m3u', '.stripped.m3u');
+
+        var buttonElement = document.createElement('button');
+        buttonElement.innerText = 'Download ' + filename;
+        buttonElement.addEventListener('click', generateDownloadHandler(i, newFilename));
+
+        downloadButtonsContainer.appendChild(buttonElement);
+      }
+    }
+
+    function generateDownloadHandler(index, newFilename) {
+      return function() {
+        var element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(exportedContents[index]));
+        element.setAttribute('download', newFilename);
+
+        element.style.display = 'none';
+        document.body.appendChild(element);
+
+        element.click();
+
+        document.body.removeChild(element);
+      };
+    }
+  </script>
+</head>
+<body>
+  <h1>m3ustrip</h1>
+  <h3>The hottest digital (M3U folder metadata) stripper around!</h3>
+  <h4>Great for making portable Mixxx playlists!</h4>
+
+  <p>Select .m3u playlist files to import:</p>
+  <input type="file" id="fileInput" accept=".m3u" multiple onchange="handleFileSelect(event)">
+
+  <div>
+    <h3>Imported Contents:</h3>
+    <div id="importedContents"></div>
+  </div>
+
+  <div>
+    <h3>Exported Contents:</h3>
+    <div id="exportedContents"></div>
+  </div>
+
+  <div id="downloadButtonsContainer"></div>
+  <div id="footer"></div>
+</body>
+</html>
