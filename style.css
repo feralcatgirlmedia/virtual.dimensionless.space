@@ -3,6 +3,10 @@ font-family: "Protomo-Outline";
 url("Protomo-Outline.otf") format("opentype"),
 }
 
+    header {
+    font-family: "Protomo-Outline";
+}
+
     html,
 body {
   margin: 0;
