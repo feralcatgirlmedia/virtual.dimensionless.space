@@ -3,7 +3,7 @@
           <link rel="stylesheet" href="m3u.css">
 <head>
     <title>traktor2m3u</title>
-    <script>
+<script>
     function convertPlaylist() {
         // Get the Traktor playlist file
         var traktorInput = document.getElementById("traktor-input").files[0];
@@ -40,13 +40,14 @@
                 var title = extractValue(line, "TITLE");
                 var artist = extractValue(line, "ARTIST");
                 var file = extractValue(line, "FILE");
+                var playtime = extractPlaytime(lines, i);
 
                 // Extract the file extension from the FILE value
                 var fileExtension = getFileExtension(file);
 
-                // Add the track information to the .m3u data with file extension
-                m3uData += "#EXTINF," + artist + " - " + title + "\n";
-		m3uData += file + "\n" + "\n";
+                // Add the track information to the .m3u data with file extension and playtime
+                m3uData += "#EXTINF:" + playtime + "," + artist + " - " + title + "\n";
+                m3uData += file + "\n\n";
             }
         }
         return m3uData;
@@ -66,6 +67,19 @@
         // Extract the file extension from the FILE value
         var fileExtension = file.split(".").pop();
         return fileExtension;
+    }
+
+    function extractPlaytime(lines, currentIndex) {
+        // Find the line starting with <INFO for the current track entry
+        for (var i = currentIndex + 1; i < lines.length; i++) {
+            var line = lines[i].trim();
+            if (line.startsWith("<INFO")) {
+                // Extract the PLAYTIME value from the INFO line
+                var playtime = extractValue(line, "PLAYTIME");
+                return playtime;
+            }
+        }
+        return "";
     }
 </script>
 </head>
