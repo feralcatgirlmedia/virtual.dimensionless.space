@@ -45,7 +45,8 @@
                 var fileExtension = getFileExtension(file);
 
                 // Add the track information to the .m3u data with file extension
-                m3uData += "#EXTINF\n" + artist + " - " + title + "." + fileExtension + "\n";
+                m3uData += "#EXTINF," + artist + " - " + title + "\n";
+		m3uData += file + "\n" + "\n";
             }
         }
         return m3uData;
