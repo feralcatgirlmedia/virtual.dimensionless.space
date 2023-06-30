@@ -10,10 +10,10 @@ function convertPlaylist() {
         var resultContainer = document.getElementById("result-container");
         resultContainer.innerText = m3uData;
         // Create a download link for the converted .m3u file (with dir contents)
-        var downloadLinkM3U = createDownloadLink(m3uData, traktorInput.name.replace(".nml", ".m3u"), "Download .m3u (with folder metadata)");
+        var downloadLinkM3U = createDownloadLink(m3uData, traktorInput.name.replace(".nml", ".m3u"), "Download .m3u (w/ folder metadata)");
         // Create a download link for the converted .m3u file (without dir contents)
         var m3uDataWithoutDir = traktorToM3U(traktorData, true);
-        var downloadLinkM3UWithoutDir = createDownloadLink(m3uDataWithoutDir, traktorInput.name.replace(".nml", "_nodir.m3u"), "Download .m3u (without folder metadata)");
+        var downloadLinkM3UWithoutDir = createDownloadLink(m3uDataWithoutDir, traktorInput.name.replace(".nml", "_nodir.m3u"), "Download .m3u (w/o folder metadata)");
         // Create a download link for the track information as a plaintext .txt file
         var trackInfoText = generateTrackInfoText(traktorData);
         var downloadLinkText = createDownloadLink(trackInfoText, traktorInput.name.replace(".nml", ".txt"), "Download .txt");
