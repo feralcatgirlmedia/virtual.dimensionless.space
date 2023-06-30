@@ -130,7 +130,12 @@ function generateTrackInfoText(traktorData) {
             // Extract the track information from the line
             var title = extractValue(line, "TITLE");
             var artist = extractValue(line, "ARTIST");
-            var album = extractValue(line, "ALBUM");
+            var location = extractValue(line, "LOCATION");
+            var dir = extractValue(line, "DIR");
+            var file = extractValue(line, "FILE");
+            var bpm = extractValue(line, "BPM");
+            var genre = extractValue(line, "GENRE");
+
 
             // Replace HTML entities in track information
             title = replaceHtmlEntities(title);
@@ -142,6 +147,9 @@ function generateTrackInfoText(traktorData) {
                 trackInfoText += "Title: " + title + "\n";
                 trackInfoText += "Artist: " + artist + "\n";
                 trackInfoText += "Album: " + album + "\n\n";
+                trackInfoText += "Genre: " + genre + "\n\n";
+                trackInfoText += "BPM: " + bpm + "\n\n";
+                trackInfoText += "Filename: " + dir + file "\n\n";
             }
         }
     }
