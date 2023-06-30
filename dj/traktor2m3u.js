@@ -29,37 +29,39 @@
         return downloadLink;
     }
 
-    function traktorToM3U(traktorData) {
-        // Split the Traktor data into individual lines
-        var lines = traktorData.split("\n");
-        // Initialize the .m3u data
-        var m3uData = "#EXTM3U\n";
-        // Process each line of the Traktor data
-        for (var i = 0; i < lines.length; i++) {
-            var line = lines[i].trim();
-            // Check if the line contains a track entry
-            if (line.startsWith("<ENTRY")) {
-                // Extract the track information from the line
-                var title = extractValue(line, "TITLE");
-                var artist = extractValue(line, "ARTIST");
-                var file = extractValue(line, "FILE");
-                var playtime = extractPlaytime(lines, i);
+function traktorToM3U(traktorData) {
+    // Split the Traktor data into individual lines
+    var lines = traktorData.split("\n");
+    // Initialize the .m3u data
+    var m3uData = "#EXTM3U\n";
+    // Process each line of the Traktor data
+    for (var i = 0; i < lines.length; i++) {
+        var line = lines[i].trim();
+        // Check if the line contains a track entry
+        if (line.startsWith("<ENTRY")) {
+            // Extract the track information from the line
+            var title = extractValue(line, "TITLE");
+            var artist = extractValue(line, "ARTIST");
+            var file = extractValue(line, "FILE");
+            var playtime = extractPlaytime(lines, i);
 
-                // Extract the file extension from the FILE value
-                var fileExtension = getFileExtension(file);
+            // Extract the file extension from the FILE value
+            var fileExtension = getFileExtension(file);
 
-                // Replace HTML entities in track information
-                title = replaceHtmlEntities(title);
-                artist = replaceHtmlEntities(artist);
-                file = replaceHtmlEntities(file);
+            // Replace HTML entities in track information
+            title = replaceHtmlEntities(title);
+            artist = replaceHtmlEntities(artist);
+            file = replaceHtmlEntities(file);
 
-                // Add the track information to the .m3u data with file extension and playtime
+            // Add the track information to the .m3u data with file extension and playtime
+            if (title !== "" && artist !== "") {
                 m3uData += "#EXTINF:" + playtime + "," + artist + " - " + title + "\n";
                 m3uData += file + "\n\n";
             }
         }
-        return m3uData;
     }
+    return m3uData;
+}
 
     function extractValue(line, key) {
         // Extract the value associated with the specified key from a line
@@ -103,30 +105,33 @@
         return str;
     }
 
-    function generateTrackInfoText(traktorData) {
-        // Split the Traktor data into individual lines
-        var lines = traktorData.split("\n");
-        // Initialize the track info text
-        var trackInfoText = "";
-        // Process each line of the Traktor data
-        for (var i = 0; i < lines.length; i++) {
-            var line = lines[i].trim();
-            // Check if the line contains a track entry
-            if (line.startsWith("<ENTRY")) {
-                // Extract the track information from the line
-                var title = extractValue(line, "TITLE");
-                var artist = extractValue(line, "ARTIST");
-                var album = extractValue(line, "ALBUM");
+function generateTrackInfoText(traktorData) {
+    // Split the Traktor data into individual lines
+    var lines = traktorData.split("\n");
+    // Initialize the track info text
+    var trackInfoText = "";
+    // Process each line of the Traktor data
+    for (var i = 0; i < lines.length; i++) {
+        var line = lines[i].trim();
+        // Check if the line contains a track entry
+        if (line.startsWith("<ENTRY")) {
+            // Extract the track information from the line
+            var title = extractValue(line, "TITLE");
+            var artist = extractValue(line, "ARTIST");
+            var album = extractValue(line, "ALBUM");
 
-                // Replace HTML entities in track information
-                title = replaceHtmlEntities(title);
-                artist = replaceHtmlEntities(artist);
-                album = replaceHtmlEntities(album);
+            // Replace HTML entities in track information
+            title = replaceHtmlEntities(title);
+            artist = replaceHtmlEntities(artist);
+            album = replaceHtmlEntities(album);
 
-                // Add the track information to the track info text
+            // Add the track information to the track info text
+            if (title !== "" && artist !== "") {
                 trackInfoText += "Title: " + title + "\n";
-                trackInfoText += "Artist: " + artist + "\n\n";
+                trackInfoText += "Artist: " + artist + "\n";
+                trackInfoText += "Album: " + album + "\n\n";
             }
         }
-        return trackInfoText;
     }
+    return trackInfoText;
+}
