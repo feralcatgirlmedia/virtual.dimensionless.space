@@ -8,7 +8,7 @@ body {
   background-image: url("m3u.jpg");
   background-position: center;
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
   background-attachment: fixed;
 }
   
