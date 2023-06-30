@@ -13,7 +13,7 @@ function convertPlaylist() {
         var downloadLinkM3U = createDownloadLink(m3uData, traktorInput.name.replace(".nml", ".m3u"), "Download .m3u (w/ folder metadata)");
         // Create a download link for the converted .m3u file (without dir contents)
         var m3uDataWithoutDir = traktorToM3U(traktorData, true);
-        var downloadLinkM3UWithoutDir = createDownloadLink(m3uDataWithoutDir, traktorInput.name.replace(".nml", "_nodir.m3u"), "Download .m3u (w/o folder metadata)");
+        var downloadLinkM3UWithoutDir = createDownloadLink(m3uDataWithoutDir, traktorInput.name.replace(".nml", ".stripped.m3u"), "Download .m3u (w/o folder metadata)");
         // Create a download link for the track information as a plaintext .txt file
         var trackInfoText = generateTrackInfoText(traktorData);
         var downloadLinkText = createDownloadLink(trackInfoText, traktorInput.name.replace(".nml", ".txt"), "Download .txt");
@@ -133,16 +133,21 @@ if (line.startsWith("<ENTRY") || line.startsWith("<LOCATION") || line.startsWith
             // Extract the track information from the line
             var title = extractValue(line, "TITLE");
             var artist = extractValue(line, "ARTIST");
+            var location = extractValue(line, "LOCATION");
+            var dir = extractValue(line, "DIR");
+            var file = extractValue(line, "FILE");
             var album = extractValue(line, "ALBUM");
             var key = extractValue(line, "KEY");
             var genre = extractValue(line, "GENRE");
             var bpm = extractValue(line, "BPM");
             var playtime = extractPlaytime(lines, i);
 
+
             // Replace HTML entities in track information
             title = replaceHtmlEntities(title);
             artist = replaceHtmlEntities(artist);
             album = replaceHtmlEntities(album);
+            dir = replaceHtmlEntities(dir);
 
             // Add the track information to the track info text
             if (title !== "" && artist !== "") {
@@ -152,7 +157,8 @@ if (line.startsWith("<ENTRY") || line.startsWith("<LOCATION") || line.startsWith
                 trackInfoText += "Genre: " + genre + "\n";
                 trackInfoText += "Key: " + key + "\n";
                 trackInfoText += "BPM: " + bpm + "\n";
-                trackInfoText += "Runtime (seconds): " + playtime + "\n\n";
+                trackInfoText += "Runtime (seconds): " + playtime + "\n";
+                trackInfoText += "Filename: " + dir + file + "\n\n";
 
             }
         }
