@@ -51,7 +51,7 @@
                     var location = extractValue(line, "LOCATION");
 
                     // Add the track information to the .m3u data
-                    m3uData += "#EXTINF\n" + artist + " - " + title + "\n";
+                    m3uData += "#EXTINF\n" + artist + " - " + title + "";
                     m3uData += location + "\n";
                 }
             }
