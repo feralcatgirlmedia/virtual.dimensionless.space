@@ -13,7 +13,7 @@ function convertPlaylist() {
         var downloadLinkM3U = createDownloadLink(m3uData, traktorInput.name.replace(".nml", ".m3u"), "Download .m3u (w/ folder metadata)");
         // Create a download link for the converted .m3u file (without dir contents)
         var m3uDataWithoutDir = traktorToM3U(traktorData, true);
-        var downloadLinkM3UWithoutDir = createDownloadLink(m3uDataWithoutDir, traktorInput.name.replace(".nml", ".stripped.m3u"), "Download .m3u (w/o folder metadata)");
+        var downloadLinkM3UWithoutDir = createDownloadLink(m3uDataWithoutDir, traktorInput.name.replace(".nml", "_nodir.m3u"), "Download .m3u (w/o folder metadata)");
         // Create a download link for the track information as a plaintext .txt file
         var trackInfoText = generateTrackInfoText(traktorData);
         var downloadLinkText = createDownloadLink(trackInfoText, traktorInput.name.replace(".nml", ".txt"), "Download .txt");
@@ -42,7 +42,7 @@ function traktorToM3U(traktorData, excludeDir) {
     for (var i = 0; i < lines.length; i++) {
         var line = lines[i].trim();
         // Check if the line contains a track entry
-        if (line.startsWith("<ENTRY")) {
+if (line.startsWith("<ENTRY") || line.startsWith("<LOCATION") || line.startsWith("<ALBUM") || line.startsWith("<INFO")) {	
             // Extract the track information from the line
             var title = extractValue(line, "TITLE");
             var artist = extractValue(line, "ARTIST");
@@ -100,6 +100,7 @@ function traktorToM3U(traktorData, excludeDir) {
                 // Extract the PLAYTIME value from the INFO line
                 var playtime = extractValue(line, "PLAYTIME");
                 return playtime;
+
             }
         }
         return "";
@@ -128,11 +129,12 @@ function generateTrackInfoText(traktorData) {
     for (var i = 0; i < lines.length; i++) {
         var line = lines[i].trim();
         // Check if the line contains a track entry
-        if (line.startsWith("<ENTRY")) {
+if (line.startsWith("<ENTRY") || line.startsWith("<LOCATION") || line.startsWith("<ALBUM") || line.startsWith("<INFO")) {	
             // Extract the track information from the line
             var title = extractValue(line, "TITLE");
             var artist = extractValue(line, "ARTIST");
             var album = extractValue(line, "ALBUM");
+            var key = extractValue(line, "KEY");
             var genre = extractValue(line, "GENRE");
             var bpm = extractValue(line, "BPM");
             var playtime = extractPlaytime(lines, i);
@@ -147,9 +149,11 @@ function generateTrackInfoText(traktorData) {
                 trackInfoText += "Title: " + title + "\n";
                 trackInfoText += "Artist: " + artist + "\n";
                 trackInfoText += "Album: " + album + "\n";
-                trackInfoText += "Runtime (seconds): " + playtime + "\n";
+                trackInfoText += "Genre: " + genre + "\n";
+                trackInfoText += "Key: " + key + "\n";
                 trackInfoText += "BPM: " + bpm + "\n";
-                trackInfoText += "Genre: " + genre + "\n\n";
+                trackInfoText += "Runtime (seconds): " + playtime + "\n\n";
+
             }
         }
     }
