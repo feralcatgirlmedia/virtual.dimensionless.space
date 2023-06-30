@@ -45,6 +45,11 @@
                 // Extract the file extension from the FILE value
                 var fileExtension = getFileExtension(file);
 
+                // Replace HTML entities in track information
+                title = replaceHtmlEntities(title);
+                artist = replaceHtmlEntities(artist);
+                file = replaceHtmlEntities(file);
+
                 // Add the track information to the .m3u data with file extension and playtime
                 m3uData += "#EXTINF:" + playtime + "," + artist + " - " + title + "\n";
                 m3uData += file + "\n\n";
@@ -80,6 +85,19 @@
             }
         }
         return "";
+    }
+
+    function replaceHtmlEntities(str) {
+        var entities = {
+            "&amp;": "&",
+            // Add more HTML entities here if needed
+        };
+        for (var entity in entities) {
+            if (entities.hasOwnProperty(entity)) {
+                str = str.replace(new RegExp(entity, "g"), entities[entity]);
+            }
+        }
+        return str;
     }
 </script>
 </head>
