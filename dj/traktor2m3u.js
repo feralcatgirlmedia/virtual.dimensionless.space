@@ -1,25 +1,29 @@
-    function convertPlaylist() {
-        // Get the Traktor playlist file
-        var traktorInput = document.getElementById("traktor-input").files[0];
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            var traktorData = e.target.result;
-            // Process the Traktor playlist data and convert it to .m3u format
-            var m3uData = traktorToM3U(traktorData);
-            // Display the generated .m3u output
-            var resultContainer = document.getElementById("result-container");
-            resultContainer.innerText = m3uData;
-            // Create a download link for the converted .m3u file
-            var downloadLinkM3U = createDownloadLink(m3uData, traktorInput.name.replace(".nml", ".m3u"), "Download .m3u");
-            // Create a download link for the track information as a plaintext .txt file
-            var trackInfoText = generateTrackInfoText(traktorData);
-            var downloadLinkText = createDownloadLink(trackInfoText, traktorInput.name.replace(".nml", ".txt"), "Download .txt");
-            // Display the download links
-            resultContainer.appendChild(downloadLinkM3U);
-            resultContainer.appendChild(downloadLinkText);
-        };
-        reader.readAsText(traktorInput);
-    }
+function convertPlaylist() {
+    // Get the Traktor playlist file
+    var traktorInput = document.getElementById("traktor-input").files[0];
+    var reader = new FileReader();
+    reader.onload = function (e) {
+        var traktorData = e.target.result;
+        // Process the Traktor playlist data and convert it to .m3u format
+        var m3uData = traktorToM3U(traktorData);
+        // Display the generated .m3u output
+        var resultContainer = document.getElementById("result-container");
+        resultContainer.innerText = m3uData;
+        // Create a download link for the converted .m3u file (with dir contents)
+        var downloadLinkM3U = createDownloadLink(m3uData, traktorInput.name.replace(".nml", ".m3u"), "Download .m3u (with folder metadata)");
+        // Create a download link for the converted .m3u file (without dir contents)
+        var m3uDataWithoutDir = traktorToM3U(traktorData, true);
+        var downloadLinkM3UWithoutDir = createDownloadLink(m3uDataWithoutDir, traktorInput.name.replace(".nml", "_nodir.m3u"), "Download .m3u (without folder metadata)");
+        // Create a download link for the track information as a plaintext .txt file
+        var trackInfoText = generateTrackInfoText(traktorData);
+        var downloadLinkText = createDownloadLink(trackInfoText, traktorInput.name.replace(".nml", ".txt"), "Download .txt");
+        // Display the download links
+        resultContainer.appendChild(downloadLinkM3U);
+        resultContainer.appendChild(downloadLinkM3UWithoutDir);
+        resultContainer.appendChild(downloadLinkText);
+    };
+    reader.readAsText(traktorInput);
+}
 
     function createDownloadLink(data, filename, buttonText) {
         var downloadLink = document.createElement("a");
@@ -29,7 +33,7 @@
         return downloadLink;
     }
 
-function traktorToM3U(traktorData) {
+function traktorToM3U(traktorData, excludeDir) {
     // Split the Traktor data into individual lines
     var lines = traktorData.split("\n");
     // Initialize the .m3u data
@@ -54,12 +58,16 @@ function traktorToM3U(traktorData) {
             title = replaceHtmlEntities(title);
             artist = replaceHtmlEntities(artist);
             file = replaceHtmlEntities(file);
-	    dir = replaceHtmlEntities(dir)
+            dir = replaceHtmlEntities(dir)
 
             // Add the track information to the .m3u data with file extension and playtime
             if (title !== "" && artist !== "") {
                 m3uData += "#EXTINF:" + playtime + "," + artist + " - " + title + "\n";
-                m3uData += dir + file + "\n\n";
+                if (excludeDir) {
+                    m3uData += file + "\n\n";
+                } else {
+                    m3uData += dir + file + "\n\n";
+                }
             }
         }
     }
