@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+          <link rel="stylesheet" href="css/m3u.css">
+<head>
+    <title>Traktor Playlist Converter</title>
+    <script>
+        function convertPlaylist() {
+            // Get the Traktor playlist file
+            var traktorInput = document.getElementById("traktor-input").files[0];
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                var traktorData = e.target.result;
+
+                // Process the Traktor playlist data and convert it to .m3u format
+                var m3uData = traktorToM3U(traktorData);
+
+                // Display the generated .m3u output
+                var resultContainer = document.getElementById("result-container");
+                resultContainer.innerText = m3uData;
+
+                // Create a download link for the converted .m3u file
+                var downloadLink = document.createElement("a");
+                downloadLink.href = "data:text/plain;charset=utf-8," + encodeURIComponent(m3uData);
+                downloadLink.download = traktorInput.name.replace(".nml", ".m3u");
+                downloadLink.innerHTML = '<button>Download Playlist</button>';
+
+                // Display the download link
+                resultContainer.appendChild(downloadLink);
+            };
+
+            reader.readAsText(traktorInput);
+        }
+
+        function traktorToM3U(traktorData) {
+            // Split the Traktor data into individual lines
+            var lines = traktorData.split("\n");
+
+            // Initialize the .m3u data
+            var m3uData = "#EXTM3U\n";
+
+            // Process each line of the Traktor data
+            for (var i = 0; i < lines.length; i++) {
+                var line = lines[i].trim();
+
+                // Check if the line contains a track entry
+                if (line.startsWith("<ENTRY")) {
+                    // Extract the track information from the line
+                    var title = extractValue(line, "TITLE");
+                    var artist = extractValue(line, "ARTIST");
+                    var location = extractValue(line, "LOCATION");
+
+                    // Add the track information to the .m3u data
+                    m3uData += "#EXTINF\n" + artist + " - " + title + "\n";
+                    m3uData += location + "\n";
+                }
+            }
+
+            return m3uData;
+        }
+
+        function extractValue(line, key) {
+            // Extract the value associated with the specified key from a line
+            var regex = new RegExp(key + "=\"(.*?)\"", "i");
+            var match = line.match(regex);
+            if (match && match.length > 1) {
+                return match[1];
+            }
+            return "";
+        }
+    </script>
+</head>
+<body>
+    <center>
+        <h1>Traktor Playlist Converter</h1>
+        <input type="file" id="traktor-input" accept=".nml">
+        <button onclick="convertPlaylist()">Convert</button>
+        <div id="result-container"></div>
+    </center>
+</body>
+</html>
