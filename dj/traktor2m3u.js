@@ -49,6 +49,8 @@ function traktorToM3U(traktorData, excludeDir) {
             var location = extractValue(line, "LOCATION");
             var dir = extractValue(line, "DIR");
             var file = extractValue(line, "FILE");
+            var bpm = extractValue(line, "BPM");
+            var genre = extractValue(line, "GENRE");
             var playtime = extractPlaytime(lines, i);
 
             // Extract the file extension from the FILE value
@@ -135,6 +137,8 @@ function generateTrackInfoText(traktorData) {
             var file = extractValue(line, "FILE");
             var bpm = extractValue(line, "BPM");
             var genre = extractValue(line, "GENRE");
+            var playtime = extractPlaytime(lines, i);
+
 
 
             // Replace HTML entities in track information
@@ -148,8 +152,10 @@ function generateTrackInfoText(traktorData) {
                 trackInfoText += "Artist: " + artist + "\n";
                 trackInfoText += "Album: " + album + "\n\n";
                 trackInfoText += "Genre: " + genre + "\n\n";
+                trackInfoText += "Runtime: " + playtime + "\n\n";
                 trackInfoText += "BPM: " + bpm + "\n\n";
-                trackInfoText += "Filename: " + dir + file "\n\n";
+                trackInfoText += "Filename: " + dir + file + "\n\n";
+                
             }
         }
     }
