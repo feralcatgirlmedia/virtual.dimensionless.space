@@ -128,8 +128,13 @@ function generateTrackInfoText(traktorData) {
     // Process each line of the Traktor data
     for (var i = 0; i < lines.length; i++) {
         var line = lines[i].trim();
-        // Check if the line contains a track entry
-if (line.startsWith("<ENTRY") || line.startsWith("<LOCATION") || line.startsWith("<ALBUM") || line.startsWith("<INFO")) {	
+        // Check if the line contains a relevant entry
+        if (
+            line.startsWith("<ENTRY") ||
+            line.startsWith("<LOCATION") ||
+            line.startsWith("<ALBUM") ||
+            line.startsWith("<INFO")
+        ) {
             // Extract the track information from the line
             var title = extractValue(line, "TITLE");
             var artist = extractValue(line, "ARTIST");
@@ -141,7 +146,6 @@ if (line.startsWith("<ENTRY") || line.startsWith("<LOCATION") || line.startsWith
             var genre = extractValue(line, "GENRE");
             var bpm = extractValue(line, "BPM");
             var playtime = extractPlaytime(lines, i);
-
 
             // Replace HTML entities in track information
             title = replaceHtmlEntities(title);
@@ -159,7 +163,6 @@ if (line.startsWith("<ENTRY") || line.startsWith("<LOCATION") || line.startsWith
                 trackInfoText += "BPM: " + bpm + "\n";
                 trackInfoText += "Runtime (seconds): " + playtime + "\n";
                 trackInfoText += "Filename: " + dir + file + "\n\n";
-
             }
         }
     }
