@@ -13,7 +13,7 @@ body, html {
 body {
   margin: 0;
   padding: 0;
-  background-image: url("bg.png");
+  background-image: url("https://virtual.dimensionless.space/bg.png");
   background-position: center;
   background-repeat: no-repeat;
 webkit-background-size: cover;
@@ -21,8 +21,35 @@ webkit-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
   background-attachment: fixed;
+            justify-content: center;
+            align-items: center;
 }
-                  a, h1, h2, h3, h4 {
-  color:#FFFFFF;
-text-shadow: rgb(255, 255, 255) 3px 0px 0px, rgb(255, 255, 255) 2.83487px 0.981584px 0px, rgb(255, 255, 255) 2.35766px 1.85511px 0px, rgb(255, 255, 255) 1.62091px 2.52441px 0px, rgb(255, 255, 255) 0.705713px 2.91581px 0px, rgb(255, 255, 255) -0.287171px 2.98622px 0px, rgb(255, 255, 255) -1.24844px 2.72789px 0px, rgb(255, 255, 255) -2.07227px 2.16926px 0px, rgb(255, 255, 255) -2.66798px 1.37182px 0px, rgb(255, 255, 255) -2.96998px 0.42336px 0px, rgb(255, 255, 255) -2.94502px -0.571704px 0px, rgb(255, 255, 255) -2.59586px -1.50383px 0px, rgb(255, 255, 255) -1.96093px -2.27041px 0px, rgb(255, 255, 255) -1.11013px -2.78704px 0px, rgb(255, 255, 255) -0.137119px -2.99686px 0px, rgb(255, 255, 255) 0.850987px -2.87677px 0px, rgb(255, 255, 255) 1.74541px -2.43999px 0px, rgb(255, 255, 255) 2.44769px -1.73459px 0px, rgb(255, 255, 255) 2.88051px -0.838247px 0px;
+                  span, p, a, h1, h2, h3, h4, footer {
+text-shadow: rgb(0, 0, 0) 3px 0px 0px, rgb(0, 0, 0) 2.83487px 0.981584px 0px, rgb(0, 0, 0) 2.35766px 1.85511px 0px, rgb(0, 0, 0) 1.62091px 2.52441px 0px, rgb(0, 0, 0) 0.705713px 2.91581px 0px, rgb(0, 0, 0) -0.287171px 2.98622px 0px, rgb(0, 0, 0) -1.24844px 2.72789px 0px, rgb(0, 0, 0) -2.07227px 2.16926px 0px, rgb(0, 0, 0) -2.66798px 1.37182px 0px, rgb(0, 0, 0) -2.96998px 0.42336px 0px, rgb(0, 0, 0) -2.94502px -0.571704px 0px, rgb(0, 0, 0) -2.59586px -1.50383px 0px, rgb(0, 0, 0) -1.96093px -2.27041px 0px, rgb(0, 0, 0) -1.11013px -2.78704px 0px, rgb(0, 0, 0) -0.137119px -2.99686px 0px, rgb(0, 0, 0) 0.850987px -2.87677px 0px, rgb(0, 0, 0) 1.74541px -2.43999px 0px, rgb(0, 0, 0) 2.44769px -1.73459px 0px, rgb(0, 0, 0) 2.88051px -0.838247px 0px;
                   }
+
+div {
+  margin: 0 auto;
+  padding: 0px;
+  width: 400px;
+  border: 2px solid #B4CFEC;
+box-shadow: inset 0 0 0 1000px rgba(0,0,0,.2);
+}
+
+        .title-bar {
+            background: linear-gradient(to bottom, #FFFFFF,  #B4CFEC);
+            height: 30px;
+            width: 100%;
+            position: relative;
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            font-weight: bold;
+            color: #000000;
+	padding: 5px;
+            box-sizing: border-box;
+	border: 1px solid black;
+        }
+
+        .window-content {
+            position: absolute;
+}
