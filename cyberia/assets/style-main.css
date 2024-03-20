@@ -1,0 +1,63 @@
+@font-face {
+    font-family: "RS Avril";
+    src: url("RSAvril-Regular.otf") format("opentype");
+}
+
+h1, h2, h3, h4, span {
+    font-family: "RS Avril", Arial, sans-serif; /* Added fallback fonts */
+}
+a, footer {
+    font-family: "RS Avril", Arial, sans-serif; /* Added fallback fonts */
+    font-size: 20px;
+}
+
+body, html {
+    height: 100%;
+    margin: 0; /* Combined margin and padding declarations */
+    padding: 0;
+    background-image: url("wall.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover; /* Simplified background size declarations */
+}
+
+.menu {
+    margin: 0 auto;
+    padding: 0px;
+    width: 750px;
+    border: 2px solid #C8A2C8;
+    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, .2);
+}
+
+.menu-footer-1 {
+    position: static; /* Use fixed positioning */
+    left: 50%; /* Center horizontally */
+    bottom: 50px; /* 25px from the bottom */
+    margin: 0 auto;
+    padding: 0px;
+    width: 750px;
+    max-width: calc(100% - 50px); /* Ensure it doesn't overflow the viewport */
+    border: 2px solid #C8A2C8;
+    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, .2);
+}
+
+.title-bar {
+    background: linear-gradient(to bottom, #FFFFFF, #8D538D);
+    height: 30px;
+    width: 100%;
+    position: relative;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    color: #000000;
+    padding: 5px;
+    box-sizing: border-box;
+    border: 1px solid black;
+}
+
+
+
+.window-content {
+    position: absolute;
+}
